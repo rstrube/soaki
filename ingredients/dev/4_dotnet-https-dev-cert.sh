@@ -9,31 +9,35 @@
 dotnet dev-certs https
 
 # Export cert to current directory, we will copy this into various directories to properly setup the cert
-dotnet dev-certs https -ep localhost.crt --format PEM
+dotnet dev-certs https -ep aspnetcore.pem --format PEM
 
-# Create directory for storing the cert (as a .crt file) for browsers, and copy cert
-sudo mkdir -p /usr/share/ca-certificates/aspnet
-sudo cp localhost.crt /usr/share/ca-certificates/aspnet/aspnetcore-https-localhost.crt
+# Copy certificate as an trust source anchor
+sudo cp -v aspnetcore.pem /usr/share/ca-certificates/trust-source/anchors/
+
+# Update the trust list
+sudo update-ca-trust extract
+
+# Display the trust list
+trust list | grep -B2 -A2 "localhost"
+
+# Because the certificate isn't maked as CA:TRUE, update-ca-trust won't place it in /etc/ssl/certs
+# Manually copy it here.  This is needed by lower level command line utilites and dotnet itself
+sudo cp -v aspnetcore.pem /etc/ssl/certs/
 
 # Trust Firefox
 # Still WIP
 if [[ -e /usr/bin/firefox ]]; then
     echo "Setting up ASP.NET HTTPS dev certificate for Firefox..."
+    
+    # Need logic to determine default profile directory
+    #certutil -d /home/robert/.mozilla/firefox/vr3e99i8.default-release -A -t "C,," -n "localhost" -i /usr/share/ca-certificates/trust-source/anchors/aspnetcore.pem
 fi
 
 # Trust Chromium based browsers
 if [[ -e /usr/bin/google-chrome-stable ]]; then
     echo "Setting up ASP.NET HTTPS dev certificate for Google Chrome..."
-    certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n localhost -i /usr/share/ca-certificates/aspnet/aspnetcore-https-localhost.crt
-    certutil -d sql:$HOME/.pki/nssdb -A -t "C,," -n localhost -i /usr/share/ca-certificates/aspnet/aspnetcore-https-localhost.crt
+    certutil -d sql:$HOME/.pki/nssdb -A -t "C,," -n "localhost" -i /usr/share/ca-certificates/trust-source/anchors/aspnetcore.pem
 fi
 
-# Trust at OS level, command line utils, etc.
-sudo cp localhost.crt /usr/share/ca-certificates/trust-source/anchors/aspnetcore-https-localhost.pem
-sudo update-ca-trust extract
-
-# Trust dotnet-to-dotnet
-sudo cp localhost.crt /etc/ssl/certs/aspnetcore-https-localhost.pem
-
 # Remove cert from current directory
-rm localhost.crt
+rm aspnetcore.pem

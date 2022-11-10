@@ -13,7 +13,8 @@ rm ../ingredients/icons/0_gnome-papirus-icons.sh
 rm ../ingredients/media/gstreamer.sh 
 rm ../ingredients/system/seahorse.sh
 rm ../ingredients/themes/gnome-adwaita-dark-legacy-gtk.sh
-rm ../ingredients/themes/gnome-dracula-theme-gnome-terminal.sh
+rm ../ingredients/themes/dracula-theme-gnome-terminal.sh
+rm ../ingredients/themes/dracula-theme-tilix.sh
 
 echo "Generating recipe..."
 DATE=$(date +%Y-%m-%d-%H:%M:%S)

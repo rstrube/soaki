@@ -1,0 +1,21 @@
+# See: https://draculatheme.com/contribute
+
+[Color 0 ] Background: #282a36
+[Color 15] Foreground: #f8f8f2
+
+[Color 1] Red: #ff5555
+[Color 2] Green: #50fa7b
+[Color 3] Yellow: #f1fa8c
+[Color 4] Blue: #bd93f9 (Dracula Purple)
+[Color 5] Magenta: #ff79c6 (Dracula Pink)
+[Color 6] Cyan: #8be9fd
+
+[Color 7] White: #f8f8f2 (Dracula Foreground)
+[Color 8] B-Black: #44475a (Dracula Current Line)
+
+[Color 9 ] B-Red: #ff6e67
+[Color 10] B-Green: #5af78d
+[Color 11] B-Yellow: #f4f99d
+[Color 12] B-Blue: #caa8fa (Dracula B-Purple)
+[Color 13] B-Magenta: #ff92d0 (Dracula B-Pink)
+[Color 14] B-Cyan: #9aedfe

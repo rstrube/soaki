@@ -1,5 +1,5 @@
 #!/bin/bash
-# recipe.sh : 2022-11-05-11:32:55
+# recipe.sh : 2022-11-10-12:45:13
 # NOTE: Please uncomment the ingredients you wish to install before running!
 # --------------------------------------------------------------------------
 
@@ -94,7 +94,7 @@ function main() {
 
 # Themes
 # --------------------------------------------------------------------------
-#./ingredients/theme/dracula-theme-fish-shell.sh #Dracula theme for fish shell [Requires /shell/fish ingredient]
+#./ingredients/themes/dracula-theme-fish-shell.sh #Dracula theme for fish shell [Requires /shell/fish ingredient]
 #./ingredients/themes/dracula-theme-vscode.sh #Dracula theme for VSCode [Requires /dev/1_vscode ingredient]
 
 # 14. Additional Packages

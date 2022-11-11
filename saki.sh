@@ -29,7 +29,9 @@ PING_HOSTNAME="www.google.com"
 HOSTNAME="saki"
 
 # Locale Configuration
-# To list out all timezones in US run "ls -l /usr/share/zoneinfo/America"
+# To list out all timezones in a given region run "ls -l /usr/share/zoneinfo/{region}" e.g. "ls -l /usr/share/zoneinfo/America"
+# To list out all timezones run "timedatectl list-timezones"
+# To examine available locales look in /etc/locale.gen, first column is used for LANG, both columns together are used for LOCALE
 KEYS="us"
 TIMEZONE="/usr/share/zoneinfo/America/Denver"
 LOCALE="en_US.UTF-8 UTF-8"

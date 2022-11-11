@@ -76,11 +76,11 @@ function install() {
 
     # Is the the hard drive an NVME SSD?
     if [[ -n "$(echo $HD_DEVICE | grep "^/dev/nvme")" ]]; then
-        BOOT_PARTITION="${HD_DEVICE}p1"
-        ROOTFS_PARTITION="${HD_DEVICE}p2"
+        local BOOT_PARTITION="${HD_DEVICE}p1"
+        local ROOTFS_PARTITION="${HD_DEVICE}p2"
     else
-        BOOT_PARTITION="${HD_DEVICE}1"
-        ROOTFS_PARTITION="${HD_DEVICE}2"
+        local BOOT_PARTITION="${HD_DEVICE}1"
+        local ROOTFS_PARTITION="${HD_DEVICE}2"
     fi
 
     # Create the filesystem for the ESP partition
@@ -99,7 +99,7 @@ function install() {
     mount -o defaults,noatime $BOOT_PARTITION /mnt/boot
 
     # Build out swapfile
-    SWAPFILE="/swapfile"
+    local SWAPFILE="/swapfile"
     fallocate --length ${SWAPFILE_SIZE}MiB /mnt"$SWAPFILE"
     chown root /mnt"$SWAPFILE"
     chmod 600 /mnt"$SWAPFILE"
@@ -132,11 +132,11 @@ function install() {
     # Install additional firmware and uCode
     if [[ "$AMD_CPU" == "true" ]]; then
         arch-chroot /mnt pacman -S --noconfirm --needed linux-firmware amd-ucode
-        MICROCODE="amd-ucode.img"
+        local MICROCODE="amd-ucode.img"
 
     elif [[ "$INTEL_CPU" == "true" ]]; then
         arch-chroot /mnt pacman -S --noconfirm --needed linux-firmware intel-ucode
-        MICROCODE="intel-ucode.img"
+        local MICROCODE="intel-ucode.img"
     fi
 
     # 4. Core system configuration
@@ -212,16 +212,32 @@ function install() {
 
     CMDLINE_LINUX=$(trim_variable "$CMDLINE_LINUX")
 
-    # Note: standard hooks for /etc/mkinitcpio.conf are: (base udev autodetect modconf block filesystems keyboard fsck)
-    # This updates the standard hooks to support systemd-boot
-    arch-chroot /mnt sed -i "s/^HOOKS=(.*)$/HOOKS=(base systemd autodetect modconf block filesystems keyboard sd-vconsole fsck)/" /etc/mkinitcpio.conf
+    # Standard hooks for /etc/mkinitcpio.conf with systemd boot support
+    local MKINITCPIO_HOOKS="base systemd autodetect keyboard sd-vconsole modconf block fsck filesystems"
 
-    # Need to rebuild the initramfs after updating hooks
+    # Modules for /etc/mkinitcpio.conf based on GPU
+    if [[ "$INTEL_GPU" == "true" ]]; then
+        local MKINITCPIO_MODULES="i915"
+    fi
+
+    if [[ "$AMD_GPU" == "true" ]]; then
+        local MKINITCPIO_MODULES="amdgpu"
+    fi
+    
+    if [[ "$NVIDIA_GPU" == "true" ]]; then
+        local MKINITCPIO_MODULES="nvidia nvidia_modeset nvidia_uvm nvidia_drm"
+    fi
+
+    # Update /etc/mkinitcpio.conf with hooks and modules
+    arch-chroot /mnt sed -i "s/^HOOKS=(.*)$/HOOKS=($MKINITCPIO_HOOKS)/" /etc/mkinitcpio.conf
+    arch-chroot /mnt sed -i "s/^MODULES=(.*)$/MODULES=($MKINITCPIO_MODULES)/" /etc/mkinitcpio.conf
+
+    # Need to rebuild the initramfs after updating hooks and modules
     arch-chroot /mnt mkinitcpio -P
 
     # Get the UUID for the root partition
-    UUID_ROOTFS_PARTITION=$(blkid -s UUID -o value "$ROOTFS_PARTITION")
-    CMDLINE_LINUX_ROOT="root=UUID=$UUID_ROOTFS_PARTITION"
+    local UUID_ROOTFS_PARTITION=$(blkid -s UUID -o value "$ROOTFS_PARTITION")
+    local CMDLINE_LINUX_ROOT="root=UUID=$UUID_ROOTFS_PARTITION"
 
     arch-chroot /mnt systemd-machine-id-setup
     arch-chroot /mnt bootctl install

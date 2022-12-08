@@ -4,7 +4,7 @@
 echo "Copying ingredients from saxx_common..."
 cp -r ../../saxx-common/ingredients/* ../ingredients/
 
-echo "Removing unrelated ingredients for sagi..."
+echo "Removing unrelated ingredients for saki..."
 rm ../ingredients/core/aur.sh 
 rm ../ingredients/dev/2_gnome-vscode-wayland.sh
 rm ../ingredients/fonts/0_gnome-fonts.sh

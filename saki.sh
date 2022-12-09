@@ -217,7 +217,7 @@ function install() {
     echo "--save /etc/pacman.d/mirrorlist" > /mnt/etc/xdg/reflector/reflector.conf
     echo "--country \"$REFLECTOR_COUNTRY\"" >> /mnt/etc/xdg/reflector/reflector.conf
     echo "--protocol https" >> /mnt/etc/xdg/reflector/reflector.conf
-    echo "--latest 25" >> /mnt/etc/xdg/reflector/reflector.conf
+    echo "--latest 15" >> /mnt/etc/xdg/reflector/reflector.conf
     echo "--sort rate" >> /mnt/etc/xdg/reflector/reflector.conf
 
     echo "=========================================="
@@ -344,6 +344,14 @@ function install() {
         xdg-desktop-portal                  `# Support for screensharing in pipewire for KDE` \
         xdg-desktop-portal-kde \
         noto-fonts noto-fonts-emoji         `# Noto fonts to support emojis` \
+        phonon-qt5-gstreamer                `# GStreamer backend for QT5 phonon` \
+        gst-plugin-pipewire                 `# Additional GStreamer plugins` \
+        gst-libav \
+        gst-plugins-base \
+        gst-plugins-good \
+        gst-plugins-bad \
+        gst-plugins-ugly \
+        gstreamer-vaapi \
         rust                                `# Rust for paru AUR helper`
 
     # Note: systemctl enable --user doesn't work via arch-chroot, performing manual creation of symlinks

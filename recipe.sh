@@ -1,5 +1,5 @@
 #!/bin/bash
-# recipe.sh : 2022-11-10-12:45:13
+# recipe.sh : 2022-12-08-19:50:48
 # NOTE: Please uncomment the ingredients you wish to install before running!
 # --------------------------------------------------------------------------
 
@@ -19,7 +19,6 @@ function main() {
 #./ingredients/system/dnsutils.sh #Various DNS related utilities including dig
 #./ingredients/system/kde-configure-baloo-basic-indexing.sh #Configure Baloo file indexer to only perform basic indexing (performance improvement)
 #./ingredients/system/kde-overview-and-shortcuts.sh #Enable new Plasma overview feature and set sane shortcuts
-#./ingredients/system/libsecret-gnome-keyring.sh #Add support for libsecret via Gnome keyring (use until KWallet has libsecret support)
 #./ingredients/system/networkmanager-openvpn.sh #OpenVPN support for networkmanager
 #./ingredients/system/rsync.sh #Command line utility for syncing filesystems (useful for backup)
 
@@ -41,7 +40,8 @@ function main() {
 #./ingredients/dev/0_git.sh "Firstname Lastname" "myname@mydomain.com" #Git installation and configuration
 #./ingredients/dev/1_vscode.sh #Visual Studio Code
 #./ingredients/dev/2_kde-vscode-wayland.sh #Native Wayland Support for VSCode [Requires /dev/1_vscode ingredient]
-#./ingredients/dev/3_dotnet.sh #.NET Core SDK and Runtimes
+#./ingredients/dev/3_dotnet-6.sh #.NET Core SDK and Runtimes (version 6.x)
+#./ingredients/dev/3_dotnet-latest.sh #.NET Core SDK and Runtimes (latest stable version)
 #./ingredients/dev/4_dotnet-https-dev-cert.sh #ASP.NET Dev HTTPS Cert [Requires /dev/dotnet ingredient]
 #./ingredients/dev/android.sh #Android development tools (ADB, etc.)
 #./ingredients/dev/docker.sh #Docker
@@ -63,7 +63,6 @@ function main() {
 #./ingredients/media/blanket.sh #Whitenoise generation application
 #./ingredients/media/codecs.sh #Codecs for Audio, Images, and Video
 #./ingredients/media/gpodder.sh #Excellent podcast manager
-#./ingredients/media/kde-gstreamer.sh #KDE Phonon with GStreamer backend + Plugins
 #./ingredients/media/tauon-music-box.sh #Tauon Music Box
 #./ingredients/media/vlc.sh #VLC media player
 

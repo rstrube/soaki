@@ -1,5 +1,5 @@
 #!/bin/bash
-# recipe.sh : 2022-12-08-19:54:40
+# recipe.sh : 2022-12-19-17:53:41
 # NOTE: Please uncomment the ingredients you wish to install before running!
 # --------------------------------------------------------------------------
 
@@ -19,6 +19,7 @@ function main() {
 #./ingredients/system/dnsutils.sh #Various DNS related utilities including dig
 #./ingredients/system/kde-configure-baloo-basic-indexing.sh #Configure Baloo file indexer to only perform basic indexing (performance improvement)
 #./ingredients/system/kde-overview-and-shortcuts.sh #Enable new Plasma overview feature and set sane shortcuts
+#./ingredients/system/kitty.sh #kitty: a lightweight GPU accelerated terminal emulator
 #./ingredients/system/networkmanager-openvpn.sh #OpenVPN support for networkmanager
 #./ingredients/system/rsync.sh #Command line utility for syncing filesystems (useful for backup)
 
@@ -83,6 +84,7 @@ function main() {
 # Fonts
 # --------------------------------------------------------------------------
 #./ingredients/fonts/0_kde-fonts.sh #Install and configure sane fonts for KDE
+#./ingredients/fonts/kitty-jetbrains-mono.sh #JetBrains Mono font for Kitty terminal emulator [Requires /system/kitty and /fonts/0_xxx-fonts ingredients]
 #./ingredients/fonts/vscode-jetbrains-mono.sh #JetBrains Mono font for Visual Studio Code [Requires /dev/1_vscode and /fonts/0_xxx-fonts ingredients]
 
 # Hardware
@@ -93,6 +95,7 @@ function main() {
 # Themes
 # --------------------------------------------------------------------------
 #./ingredients/themes/dracula-theme-fish-shell.sh #Dracula theme for fish shell [Requires /shell/fish ingredient]
+#./ingredients/themes/dracula-theme-kitty.sh #Dracula theme for kitty terminal emulator
 #./ingredients/themes/dracula-theme-vscode.sh #Dracula theme for VSCode [Requires /dev/1_vscode ingredient]
 
 # 14. Additional Packages

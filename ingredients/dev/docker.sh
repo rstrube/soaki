@@ -4,7 +4,7 @@
 DIR=$(dirname "$0")
 source $DIR/../_helper/_common-functions.sh
 
-paru -S --needed docker
+paru -S --noconfirm --needed docker
 
 # Add user to the correct groups
 sudo usermod -a -G docker $USER

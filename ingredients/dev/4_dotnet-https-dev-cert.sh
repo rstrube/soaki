@@ -30,9 +30,16 @@ sudo chmod +r /etc/ssl/certs/aspnetcore.pem
 # Still WIP
 if [[ -e /usr/bin/firefox ]]; then
     echo "Setting up ASP.NET HTTPS dev certificate for Firefox..."
+
+    # Get the Firefox profile directory
+    FF_PROFILE_DIR=$(grep "Default=.*\.default*" "$HOME/.mozilla/firefox/profiles.ini" | cut -d"=" -f2)
     
-    # Need logic to determine default profile directory
-    #certutil -d /home/robert/.mozilla/firefox/vr3e99i8.default-release -A -t "C,," -n "ASP.NET Core Development localhost" -i /usr/share/ca-certificates/trust-source/anchors/aspnetcore.pem
+    if [[ -n "$FF_PROFILE_DIR" ]]; then
+        echo "Firefox profile directory=$FF_PROFILE_DIR"
+        certutil -d $HOME/.mozilla/firefox/$FF_PROFILE_DIR -A -t "C,," -n "localhost" -i /usr/share/ca-certificates/trust-source/anchors/aspnetcore.pem
+    else
+        echo "Unable to determine Firefox profile directory! Unable to install ASP.NET HTTPS dev certificate!"
+    fi
 fi
 
 # Trust Chromium based browsers

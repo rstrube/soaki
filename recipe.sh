@@ -1,5 +1,5 @@
 #!/bin/bash
-# recipe.sh : 2022-12-21-11:00:29
+# recipe.sh : 2022-12-21-12:42:30
 # NOTE: Please uncomment the ingredients you wish to install before running!
 # --------------------------------------------------------------------------
 
@@ -22,6 +22,7 @@ function main() {
 #./ingredients/system/kde-remove-sddm.sh #Remove SDDM display manager and support starting plasma directly after logging in on TTY1
 #./ingredients/system/kitty.sh #kitty: a lightweight GPU accelerated terminal emulator
 #./ingredients/system/networkmanager-openvpn.sh #OpenVPN support for networkmanager
+#./ingredients/system/openssh.sh #OpenSSH: supports remote login via SSH protocol
 #./ingredients/system/rsync.sh #Command line utility for syncing filesystems (useful for backup)
 
 # Editors
@@ -90,7 +91,6 @@ function main() {
 
 # Hardware
 # --------------------------------------------------------------------------
-#./ingredients/hardware/cpu-amd-undervolt-support.sh #Support for undervolting AMD CPUs [Requires additional configuration]
 #./ingredients/hardware/mouse-logitec-solaar.sh #GUI application for managing logitec unifying receivers
 
 # Themes

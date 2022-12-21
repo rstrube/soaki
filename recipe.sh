@@ -1,5 +1,5 @@
 #!/bin/bash
-# recipe.sh : 2022-12-19-17:53:41
+# recipe.sh : 2022-12-21-11:00:29
 # NOTE: Please uncomment the ingredients you wish to install before running!
 # --------------------------------------------------------------------------
 
@@ -19,6 +19,7 @@ function main() {
 #./ingredients/system/dnsutils.sh #Various DNS related utilities including dig
 #./ingredients/system/kde-configure-baloo-basic-indexing.sh #Configure Baloo file indexer to only perform basic indexing (performance improvement)
 #./ingredients/system/kde-overview-and-shortcuts.sh #Enable new Plasma overview feature and set sane shortcuts
+#./ingredients/system/kde-remove-sddm.sh #Remove SDDM display manager and support starting plasma directly after logging in on TTY1
 #./ingredients/system/kitty.sh #kitty: a lightweight GPU accelerated terminal emulator
 #./ingredients/system/networkmanager-openvpn.sh #OpenVPN support for networkmanager
 #./ingredients/system/rsync.sh #Command line utility for syncing filesystems (useful for backup)

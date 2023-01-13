@@ -1,5 +1,5 @@
 #!/bin/bash
-# recipe.sh : 2022-12-21-13:00:37
+# recipe.sh : 2023-01-12-20:46:11
 # NOTE: Please uncomment the ingredients you wish to install before running!
 # --------------------------------------------------------------------------
 
@@ -58,6 +58,7 @@ function main() {
 #./ingredients/productivity/obsidian.sh #Excellent markdown based note manager and "second brain"
 #./ingredients/productivity/obsidian-wayland.sh #Configure Obsidian to run as a native Wayland application
 #./ingredients/productivity/pdftk.sh #PDF Toolkit allows for merging, splitting, etc.
+#./ingredients/productivity/teams.sh #Teams for Linux (uses electron wrapper)
 #./ingredients/productivity/xournalpp.sh #Xournal++ PDF annotation application
 
 # Media
@@ -98,6 +99,7 @@ function main() {
 #./ingredients/themes/dracula-theme-fish-shell.sh #Dracula theme for fish shell [Requires /shell/fish ingredient]
 #./ingredients/themes/dracula-theme-kitty.sh #Dracula theme for kitty terminal emulator
 #./ingredients/themes/dracula-theme-vscode.sh #Dracula theme for VSCode [Requires /dev/1_vscode ingredient]
+#./ingredients/themes/kde-layan-theme.sh #Layan theme for KDE
 
 # 14. Additional Packages
 # --------------------------------------------------------------------------

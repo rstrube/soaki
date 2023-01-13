@@ -39,6 +39,7 @@ mark1_foreground #282a36
 mark1_background #ff5555
 EOT
 
+mkdir -p ~/.config/kitty
 cp dracula-colors.conf ~/.config/kitty/.
 rm dracula-colors.conf
 

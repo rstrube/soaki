@@ -1,5 +1,5 @@
 #!/bin/bash
-# recipe.sh : 2023-01-12-20:46:11
+# recipe.sh : 2023-01-20-10:50:34
 # NOTE: Please uncomment the ingredients you wish to install before running!
 # --------------------------------------------------------------------------
 
@@ -48,6 +48,7 @@ function main() {
 #./ingredients/dev/4_dotnet-https-dev-cert.sh #ASP.NET Dev HTTPS Cert [Requires /dev/dotnet ingredient]
 #./ingredients/dev/android.sh #Android development tools (ADB, etc.)
 #./ingredients/dev/docker.sh #Docker
+#./ingredients/dev/kdiff3.sh #KDiff3 visual diff tool
 #./ingredients/dev/postman.sh #Postman
 #./ingredients/dev/vscode-vim.sh #vim extension for VSCode [Requires /dev/1_vscode ingredient]
 
@@ -65,7 +66,7 @@ function main() {
 # --------------------------------------------------------------------------
 #./ingredients/media/blanket.sh #Whitenoise generation application
 #./ingredients/media/codecs.sh #Codecs for Audio, Images, and Video
-#./ingredients/media/gpodder.sh #Excellent podcast manager
+#./ingredients/media/kasts.sh #Excellent podcast manager
 #./ingredients/media/tauon-music-box.sh #Tauon Music Box
 #./ingredients/media/vlc.sh #VLC media player
 

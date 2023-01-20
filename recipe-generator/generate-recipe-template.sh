@@ -10,6 +10,7 @@ rm ../ingredients/dev/2_gnome-vscode-wayland.sh
 rm ../ingredients/fonts/0_gnome-fonts.sh
 rm -rf ../ingredients/gnome-ext
 rm ../ingredients/icons/0_gnome-papirus-icons.sh
+rm ../ingredients/media/gpodder.sh
 rm ../ingredients/system/seahorse.sh
 rm ../ingredients/themes/gnome-adwaita-dark-legacy-gtk.sh
 rm ../ingredients/themes/dracula-theme-gnome-terminal.sh

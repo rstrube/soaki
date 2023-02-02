@@ -36,6 +36,11 @@ KEYS="us"
 TIMEZONE="/usr/share/zoneinfo/America/Denver"
 LOCALE="en_US.UTF-8 UTF-8"
 LANG="en_US.UTF-8"
+
+# TTY Font (Default: Terminus 24px bold)
+TTY_FONT="ter-124b" #ter-124n #ter-128b #ter-128n #ter-132b #ter-132n
+
+# Reflector Configuration
 REFLECTOR_COUNTRY="United States"
 
 # User Configuration
@@ -143,7 +148,8 @@ function install() {
         git                     `# Git` \
         vim                     `# Text editor` \
         cpupower                `# Tool for managing your CPU frequency and governor` \
-        reflector               `# Utility to manage pacman mirrors`
+        reflector               `# Utility to manage pacman mirrors` \
+        terminus-font           `# Terminus font for tty`
 
     # Install additional firmware and uCode
     if [[ "$AMD_CPU" == "true" ]]; then
@@ -201,8 +207,9 @@ function install() {
     arch-chroot /mnt locale-gen
     echo -e "LANG=$LANG" >> /mnt/etc/locale.conf
 
-    # Configure keymap for virtual console (tty)
+    # Configure keymap and font for virtual console (tty)
     echo -e "KEYMAP=$KEYS" > /mnt/etc/vconsole.conf
+    echo -e "FONT=$TTY_FONT" >> /mnt/etc/vconsole.conf 
 
     # Configure hostname and hosts files
     echo $HOSTNAME > /mnt/etc/hostname

@@ -3,57 +3,41 @@
 
 function install_fonts {
     # Install the following fonts:
-    # Font Awesome: Provides common font icons
     # Roboto: default font for Google's Android OS
-    # Fira Code: https://github.com/tonsky/FiraCode
     # Jetbrains Mono: a fantastic monospace font
     # Droid: another common font that came with Google's Android OS
     # Liberation: font family which aims at metric compatibility with Arial, Times New Roman, and Courier New
-    paru -S --noconfirm --needed otf-font-awesome ttf-roboto ttf-fira-code ttf-jetbrains-mono ttf-droid ttf-liberation
+    # Nerd Fonts: Provides a plethora of font icons
+    paru -S --noconfirm --needed ttf-roboto ttf-jetbrains-mono ttf-droid ttf-liberation ttf-nerd-fonts-symbols-1000-em
 
-    # This rebuilds the font-cache, taking into account any changes
-    sudo fc-cache -r -v
-}
+    # Create a symlink for the nerd fonts config
+    sudo ln -s /usr/share/fontconfig/conf.avail/10-nerd-font-symbols.conf /etc/fonts/conf.d/10-nerd-font-symbols.conf
 
-function setup_local_fontconfig {
-    # Setup a local fonts.conf to ensure that fallbacks for JetBrains Mono and Fira Code use other monospoce fonts first
-    # See: https://eev.ee/blog/2015/05/20/i-stared-into-the-fontconfig-and-the-fontconfig-stared-back-at-me/
+    # Create fonts.conf in $HOME to register JetBrains as a monospace font
     if [[ ! -d "~/.config/fontconfig" ]]; then
         mkdir -p ~/.config/fontconfig
     fi
 
     cat <<EOT > "fonts.conf"
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
 <fontconfig>
-    <!-- register JetBrains Mono and Fira Code as monospace fonts -->
+    <!-- register JetBrains Mono as a monospace font -->
     <alias>
         <family>JetBrains Mono</family>
         <default>
             <family>monospace</family>
         </default>
     </alias>
-    <alias>
-        <family>Fira Code</family>
-        <default>
-            <family>monospace</family>
-        </default>
-    </alias>
-
-    <!-- by default fontconfig assumes any unrecognized font is sans-serif, so -->
-    <!-- the fonts above now have /both/ families.  fix this. -->
-    <!-- note that "delete" applies to the first match deleting the sans-serif family only -->
-    <match>
-        <test compare="eq" name="family">
-            <string>sans-serif</string>
-        </test>
-        <test compare="eq" name="family">
-            <string>monospace</string>
-        </test>
-        <edit mode="delete" name="family"/>
-    </match>
+    <dir>~/.fonts</dir>
 </fontconfig>
 EOT
 
     mv fonts.conf ~/.config/fontconfig/
+
+    # This rebuilds the font-cache, taking into account any changes
+    sudo fc-cache -r -v
+    fc-cache -r -v
 }
 
 function test_coverage {

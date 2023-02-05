@@ -1,5 +1,5 @@
 #!/bin/bash
-# recipe.sh : 2023-02-01-11:59:19
+# recipe.sh : 2023-02-04-20:02:51
 # NOTE: Please uncomment the ingredients you wish to install before running!
 # --------------------------------------------------------------------------
 
@@ -83,6 +83,7 @@ function main() {
 # Icons
 # --------------------------------------------------------------------------
 #./ingredients/icons/0_kde-papirus-icons.sh #Papirus icon theme and config for KDE
+#./ingredients/icons/kde-tela-icons.sh #Tela icon theme with accents for KDE
 #./ingredients/icons/papirus-icons-folders.sh indigo Papirus-Dark #Supplmental colored folders for Papirus icon theme [Requires /icons/0_xxx-papirus-icons ingredient]
 # Folder colors: black, bluegrey, brown, deeporange, grey, magenta, orange, paleorange, red, violet, yaru, blue, breeze, cyan, green, indigo, nordic, palebrown, pink, teal, white, yellow
 

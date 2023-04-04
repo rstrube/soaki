@@ -1,22 +1,16 @@
 #!/bin/bash
-# Generate Recipe Template
+# Generate Recipe Template for saki
 
-echo "Copying ingredients from saxx_common..."
-cp -r ../../saxx-common/ingredients/* ../ingredients/
+BLACKLIST_ARRAY=("aur.sh"
+                 "2_gnome-vscode-wayland.sh"
+                 "0_gnome-fonts.sh"
+                 "0_gnome-papirus-icons.sh"
+                 "gpodder.sh"
+                 "seahorse.sh"
+                 "gnome-adwaita-dark-legacy-gtk.sh"
+                 "dracula-theme-gnome-terminal.sh"
+                 "dracula-theme-tilix.sh")
 
-echo "Removing unrelated ingredients for saki..."
-rm ../ingredients/core/aur.sh 
-rm ../ingredients/dev/2_gnome-vscode-wayland.sh
-rm ../ingredients/fonts/0_gnome-fonts.sh
-rm -rf ../ingredients/gnome-ext
-rm ../ingredients/icons/0_gnome-papirus-icons.sh
-rm ../ingredients/media/gpodder.sh
-rm ../ingredients/system/seahorse.sh
-rm ../ingredients/themes/gnome-adwaita-dark-legacy-gtk.sh
-rm ../ingredients/themes/dracula-theme-gnome-terminal.sh
-rm ../ingredients/themes/dracula-theme-tilix.sh
-
-echo "Generating recipe..."
 DATE=$(date +%Y-%m-%d-%H:%M:%S)
 GENERATED_RECIPE_TEMPLATE_NAME="recipe.sh"
 GENERATED_RECIPE_TEMPLATE_FILE="../$GENERATED_RECIPE_TEMPLATE_NAME"
@@ -30,6 +24,7 @@ function main() {
         GENERATED_RECIPE_TEMPLATE_NAME=$(basename $1)
     fi
 
+    echo "Generating saki recipe at $GENERATED_RECIPE_TEMPLATE_FILE"
     generate-recipe
 }
 
@@ -72,17 +67,36 @@ function generate-recipe() {
     chmod +x $GENERATED_RECIPE_TEMPLATE_FILE
 }
 
+function is-ingredient-blacklisted() {
+
+    local ingredient="$1"
+    local ingredientName="$(basename $ingredient)"
+    local isIngredientBlacklisted="false"
+        
+    for blackListItem in "${BLACKLIST_ARRAY[@]}"
+    do
+        if [[ "$blackListItem" == "$ingredientName" ]]; then
+            isIngredientBlacklisted="true"
+        fi
+    done
+
+    echo "$isIngredientBlacklisted"
+}
+
 function generate-recipe-section() {
 
-    SECTION_LABEL=$1
-    INGREDIENT_DIR=$2
+    local sectionLabel="$1"
+    local ingedientDir="$2"
 
     echo "" >> $GENERATED_RECIPE_TEMPLATE_FILE
-    echo $SECTION_LABEL >> $GENERATED_RECIPE_TEMPLATE_FILE
+    echo $sectionLabel >> $GENERATED_RECIPE_TEMPLATE_FILE
     echo $HR >> $GENERATED_RECIPE_TEMPLATE_FILE
 
-    for i in ${INGREDIENT_DIR}/*.sh; do
-        cat $i | grep -P -o $INGREDIENT_HEADER_REGEX >> $GENERATED_RECIPE_TEMPLATE_FILE
+    for ingredient in ${ingedientDir}/*.sh
+    do
+        if [[ "$(is-ingredient-blacklisted $ingredient)" == "false" ]]; then
+            cat $ingredient | grep -P -o $INGREDIENT_HEADER_REGEX >> $GENERATED_RECIPE_TEMPLATE_FILE
+        fi
     done
 }
 

@@ -1,0 +1,3 @@
+[submodule "ingredients"]
+	path = ingredients
+	url = https://github.com/rstrube/saxx-common

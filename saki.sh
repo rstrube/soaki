@@ -335,16 +335,16 @@ function install() {
         plasma plasma-wayland-session       `# KDE Plasma + Wayland Support` \
         plasma-nm                           `# NetworkManager applet` \
         kwallet kwallet-pam kwalletmanager  `# KWallet subsystem` \
-        konsole                             `# Common KDE apps and utilities` \
-        dolphin dolphin-plugins ark \
+        konsole                             `# Terminal application` \
+        dolphin dolphin-plugins ark         `# File manager and file preview plugins` \
         kdenetwork-filesharing \
         kdegraphics-thumbnailers \
-        ffmpegthumbs \
-        okular gwenview kwrite kcalc \
         kimageformats qt5-imageformats \
-        kcharselect \
-        partitionmanager \
-        ksystemlog \
+        ffmpegthumbs taglib \
+        okular gwenview kwrite kcalc        `# Image and PDF viewer, text editor, and calculator` \
+        kcharselect                         `# Character map` \
+        partitionmanager                    `# Partition and disk manager` \
+        ksystemlog                          `# System log viewer` \
         pipewire wireplumber                `# Pipewire and wireplumber session manager` \
         pipewire-pulse                      `# Pipewire drop in replacement for PulseAudio` \
         pipewire-jack                       `# Pipewire JACK support` \

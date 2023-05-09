@@ -149,7 +149,8 @@ function install() {
         vim                     `# Text editor` \
         cpupower                `# Tool for managing your CPU frequency and governor` \
         reflector               `# Utility to manage pacman mirrors` \
-        terminus-font           `# Terminus font for tty`
+        terminus-font           `# Terminus font for tty` \
+        pacman-contrib          `# Additional pacman utilities (paccache, etc.)`
 
     # Install additional firmware and uCode
     if [[ "$AMD_CPU" == "true" ]]; then
@@ -259,65 +260,48 @@ function install() {
 
     # Need to rebuild the initramfs after updating hooks and modules
     arch-chroot /mnt mkinitcpio -P
-
-    # Note: removing grub support for now, standardizing on systemd-boot
-    #if [[ "$BOOTLOADER" == "grub" ]]; then
-
-        # Install and configure Grub as bootloader on ESP
-        #arch-chroot /mnt pacman -S --noconfirm --needed grub efibootmgr
-
-        #arch-chroot /mnt sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="'"$CMDLINE_LINUX"'"/' /etc/default/grub
-
-        # Note: the '--removable' switch will also setup grub on /boot/EFI/BOOT/BOOTX64.EFI (which is the Windows default location)
-        # This is neccessary because many BIOSes don't honor efivars correctly
-        #arch-chroot /mnt grub-install --target=x86_64-efi --bootloader-id=grub --efi-directory=/boot --recheck --removable
-        #arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
-
-    #elif [[ "$BOOTLOADER" == "systemd" ]]; then
         
-        # Get the UUID for the root partition
-        local UUID_ROOTFS_PARTITION=$(blkid -s UUID -o value "$ROOTFS_PARTITION")
-        local CMDLINE_LINUX_ROOT="root=UUID=$UUID_ROOTFS_PARTITION"
+    # Get the UUID for the root partition
+    local UUID_ROOTFS_PARTITION=$(blkid -s UUID -o value "$ROOTFS_PARTITION")
+    local CMDLINE_LINUX_ROOT="root=UUID=$UUID_ROOTFS_PARTITION"
 
-        arch-chroot /mnt systemd-machine-id-setup
-        arch-chroot /mnt bootctl install
+    arch-chroot /mnt systemd-machine-id-setup
+    arch-chroot /mnt bootctl install
 
-        arch-chroot /mnt mkdir -p /boot/loader
-        arch-chroot /mnt mkdir -p /boot/loader/entries
+    arch-chroot /mnt mkdir -p /boot/loader
+    arch-chroot /mnt mkdir -p /boot/loader/entries
 
-        # Main systemd-boot config
-        echo "timeout 5" >> "/mnt/boot/loader/loader.conf"
-        echo "default archlinux.conf" >> "/mnt/boot/loader/loader.conf"
-        echo "editor 1" >> "/mnt/boot/loader/loader.conf"
+    # Main systemd-boot config
+    echo "timeout 5" >> "/mnt/boot/loader/loader.conf"
+    echo "default archlinux.conf" >> "/mnt/boot/loader/loader.conf"
+    echo "editor 1" >> "/mnt/boot/loader/loader.conf"
 
-        # Config for normal boot
-        echo "title Arch Linux" >> "/mnt/boot/loader/entries/archlinux.conf"
-        echo "efi /vmlinuz-linux" >> "/mnt/boot/loader/entries/archlinux.conf"
-        if [ -n "$MICROCODE" ]; then
-            echo "initrd /$MICROCODE" >> "/mnt/boot/loader/entries/archlinux.conf"
-        fi
-        echo "initrd /initramfs-linux.img" >> "/mnt/boot/loader/entries/archlinux.conf"
-        echo "options initrd=initramfs-linux.img $CMDLINE_LINUX_ROOT rw $CMDLINE_LINUX" >> "/mnt/boot/loader/entries/archlinux.conf"
+    # Config for normal boot
+    echo "title Arch Linux" >> "/mnt/boot/loader/entries/archlinux.conf"
+    echo "efi /vmlinuz-linux" >> "/mnt/boot/loader/entries/archlinux.conf"
+    if [ -n "$MICROCODE" ]; then
+        echo "initrd /$MICROCODE" >> "/mnt/boot/loader/entries/archlinux.conf"
+    fi
+    echo "initrd /initramfs-linux.img" >> "/mnt/boot/loader/entries/archlinux.conf"
+    echo "options initrd=initramfs-linux.img $CMDLINE_LINUX_ROOT rw $CMDLINE_LINUX" >> "/mnt/boot/loader/entries/archlinux.conf"
 
-        # Config for booting into terminal only
-        echo "title Arch Linux (terminal)" >> "/mnt/boot/loader/entries/archlinux-terminal.conf"
-        echo "efi /vmlinuz-linux" >> "/mnt/boot/loader/entries/archlinux-terminal.conf"
-        if [ -n "$MICROCODE" ]; then
-            echo "initrd /$MICROCODE" >> "/mnt/boot/loader/entries/archlinux-terminal.conf"
-        fi
-        echo "initrd /initramfs-linux.img" >> "/mnt/boot/loader/entries/archlinux-terminal.conf"
-        echo "options initrd=initramfs-linux.img $CMDLINE_LINUX_ROOT rw $CMDLINE_LINUX systemd.unit=multi-user.target" >> "/mnt/boot/loader/entries/archlinux-terminal.conf"
+    # Config for booting into terminal only
+    echo "title Arch Linux (terminal)" >> "/mnt/boot/loader/entries/archlinux-terminal.conf"
+    echo "efi /vmlinuz-linux" >> "/mnt/boot/loader/entries/archlinux-terminal.conf"
+    if [ -n "$MICROCODE" ]; then
+        echo "initrd /$MICROCODE" >> "/mnt/boot/loader/entries/archlinux-terminal.conf"
+    fi
+    echo "initrd /initramfs-linux.img" >> "/mnt/boot/loader/entries/archlinux-terminal.conf"
+    echo "options initrd=initramfs-linux.img $CMDLINE_LINUX_ROOT rw $CMDLINE_LINUX systemd.unit=multi-user.target" >> "/mnt/boot/loader/entries/archlinux-terminal.conf"
 
-        # Config for fallback boot (uses old initramfs)
-        echo "title Arch Linux (fallback)" >> "/mnt/boot/loader/entries/archlinux-fallback.conf"
-        echo "efi /vmlinuz-linux" >> "/mnt/boot/loader/entries/archlinux-fallback.conf"
-        if [ -n "$MICROCODE" ]; then
-            echo "initrd /$MICROCODE" >> "/mnt/boot/loader/entries/archlinux-fallback.conf"
-        fi
-        echo "initrd /initramfs-linux-fallback.img" >> "/mnt/boot/loader/entries/archlinux-fallback.conf"
-        echo "options initrd=initramfs-linux-fallback.img $CMDLINE_LINUX_ROOT rw $CMDLINE_LINUX" >> "/mnt/boot/loader/entries/archlinux-fallback.conf"
-
-    #fi
+    # Config for fallback boot (uses old initramfs)
+    echo "title Arch Linux (fallback)" >> "/mnt/boot/loader/entries/archlinux-fallback.conf"
+    echo "efi /vmlinuz-linux" >> "/mnt/boot/loader/entries/archlinux-fallback.conf"
+    if [ -n "$MICROCODE" ]; then
+        echo "initrd /$MICROCODE" >> "/mnt/boot/loader/entries/archlinux-fallback.conf"
+    fi
+    echo "initrd /initramfs-linux-fallback.img" >> "/mnt/boot/loader/entries/archlinux-fallback.conf"
+    echo "options initrd=initramfs-linux-fallback.img $CMDLINE_LINUX_ROOT rw $CMDLINE_LINUX" >> "/mnt/boot/loader/entries/archlinux-fallback.conf"
 
     echo "======================"
     echo "6. User configuration"
@@ -333,6 +317,7 @@ function install() {
     # Install KDE
     arch-chroot /mnt pacman -S --noconfirm --needed \
         plasma plasma-wayland-session       `# KDE Plasma + Wayland Support` \
+        power-profiles-daemon powerdevil    `# Power profile switching (powersave, balanced, performance) in "Batteries & Power" widget` \
         plasma-nm                           `# NetworkManager applet` \
         kwallet kwallet-pam kwalletmanager  `# KWallet subsystem` \
         konsole                             `# Terminal application` \
@@ -411,7 +396,10 @@ function install() {
     echo "10. Additional pacman hooks"
     echo "==========================="
     # Configure pacman hook for upgrading pacman-mirrorlist package
-    configure_pacman_mirrorupgrade_hook
+    configure_pacman_mirror_upgrade_hook
+
+    # Configure pacman hook for cleaning pacman cache
+    configure_pacman_clean_cache_hook
 
     # Configure pacman hook for updating systemd-boot when systemd is updated
     configure_pacman_systemd_boot_hook
@@ -622,12 +610,12 @@ EOT
 
 }
 
-function configure_pacman_mirrorupgrade_hook() {	
+function configure_pacman_mirror_upgrade_hook() {	
     if [[ ! -d "/mnt/etc/pacman.d/hooks" ]]; then	
         arch-chroot /mnt mkdir -p /etc/pacman.d/hooks	
     fi	
 
-    cat <<EOT > "/mnt/etc/pacman.d/hooks/mirrorupgrade.hook"	
+    cat <<EOT > "/mnt/etc/pacman.d/hooks/pacman-mirror-upgrade.hook"	
 [Trigger]
 Operation=Upgrade
 Type=Package
@@ -638,6 +626,27 @@ Description=Updating pacman-mirrorlist with reflector and removing pacnew...
 When=PostTransaction
 Depends=reflector
 Exec=/bin/sh -c 'systemctl start reflector.service && rm -f /etc/pacman.d/mirrorlist.pacnew'
+EOT
+
+}
+
+function configure_pacman_clean_cache_hook() {	
+    if [[ ! -d "/mnt/etc/pacman.d/hooks" ]]; then	
+        arch-chroot /mnt mkdir -p /etc/pacman.d/hooks	
+    fi	
+
+    cat <<EOT > "/mnt/etc/pacman.d/hooks/pacman-clean-cache.hook"	
+[Trigger]
+Operation = Remove
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = *
+
+[Action]
+Description = Clearing pacman cache [The last 3 versions (including current) of a given package will be kept]...
+When = PostTransaction
+Exec = /usr/bin/paccache -rvuk0 && /usr/bin/paccache -rvk3
 EOT
 
 }
@@ -658,7 +667,7 @@ Target=linux
 # Change the linux part above and in the Exec line if a different kernel is used
 
 [Action]
-Description=Update NVIDIA module in initcpio
+Description=Updating initcpio with latest nvidia kernel module...
 Depends=mkinitcpio
 When=PostTransaction
 NeedsTargets

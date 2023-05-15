@@ -336,6 +336,7 @@ function install() {
         xdg-desktop-portal                  `# Support for screensharing in pipewire for KDE` \
         xdg-desktop-portal-kde \
         noto-fonts noto-fonts-emoji         `# Noto fonts to support emojis` \
+        ttf-liberation                      `# Liberation fonts` \
         phonon-qt5-gstreamer                `# GStreamer backend for QT5 phonon` \
         gst-plugin-pipewire                 `# Additional GStreamer plugins` \
         gst-libav \

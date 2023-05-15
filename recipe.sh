@@ -1,5 +1,5 @@
 #!/bin/bash
-# recipe.sh : 2023-04-03-18:42:40
+# recipe.sh : 2023-05-15-14:13:26
 # NOTE: Please uncomment the ingredients you wish to install before running!
 # --------------------------------------------------------------------------
 
@@ -18,7 +18,6 @@ function main() {
 #./ingredients/system/btop.sh #btop: a terminal based system monitoring tool (like htop but better)
 #./ingredients/system/dnsutils.sh #Various DNS related utilities including dig
 #./ingredients/system/kde-configure-baloo-basic-indexing.sh #Configure Baloo file indexer to only perform basic indexing (performance improvement)
-#./ingredients/system/kde-overview-and-shortcuts.sh #Enable new Plasma overview feature and set sane shortcuts
 #./ingredients/system/kde-remove-sddm.sh #Remove SDDM display manager and support starting plasma directly after logging in on TTY1
 #./ingredients/system/kitty.sh #kitty: a lightweight GPU accelerated terminal emulator
 #./ingredients/system/networkmanager-openvpn.sh #OpenVPN support for networkmanager
@@ -32,9 +31,7 @@ function main() {
 # Web
 # --------------------------------------------------------------------------
 #./ingredients/web/firefox.sh #Firefox
-#./ingredients/web/firefox-wayland.sh #Native Wayland Support for Firefox [Requires /web/firefox ingredient]
 #./ingredients/web/google-chrome.sh #Google Chrome
-#./ingredients/web/google-chrome-wayland.sh #Native Wayland Support for Google Chrome [Requires /web/google-chrome ingredient]
 #./ingredients/web/remmina.sh #Remmina RDP client
 #./ingredients/web/slack.sh #Slack
 
@@ -42,22 +39,17 @@ function main() {
 # --------------------------------------------------------------------------
 #./ingredients/dev/0_git.sh "Firstname Lastname" "myname@mydomain.com" #Git installation and configuration
 #./ingredients/dev/1_vscode.sh #Visual Studio Code
-#./ingredients/dev/2_kde-vscode-wayland.sh #Native Wayland Support for VSCode [Requires /dev/1_vscode ingredient]
 #./ingredients/dev/3_dotnet-6.sh #.NET Core SDK and Runtimes (version 6.x)
 #./ingredients/dev/3_dotnet-latest.sh #.NET Core SDK and Runtimes (latest stable version)
 #./ingredients/dev/4_dotnet-https-dev-cert.sh #ASP.NET Dev HTTPS Cert [Requires /dev/dotnet ingredient]
 #./ingredients/dev/android.sh #Android development tools (ADB, etc.)
 #./ingredients/dev/docker.sh #Docker
-#./ingredients/dev/kdiff3.sh #KDiff3 visual diff tool
 #./ingredients/dev/postman.sh #Postman
 #./ingredients/dev/vscode-vim.sh #vim extension for VSCode [Requires /dev/1_vscode ingredient]
 
 # Productivity
 # --------------------------------------------------------------------------
 #./ingredients/productivity/cht.sh #cht.sh is a command line cheatsheet that provides TLDR for tons of things
-#./ingredients/productivity/flameshot.sh #Flameshot (screenshot application)
-#./ingredients/productivity/obsidian.sh #Excellent markdown based note manager and "second brain"
-#./ingredients/productivity/obsidian-wayland.sh #Configure Obsidian to run as a native Wayland application
 #./ingredients/productivity/pdftk.sh #PDF Toolkit allows for merging, splitting, etc.
 #./ingredients/productivity/teams.sh #Teams for Linux (uses electron wrapper)
 #./ingredients/productivity/xournalpp.sh #Xournal++ PDF annotation application
@@ -83,15 +75,12 @@ function main() {
 # Icons
 # --------------------------------------------------------------------------
 #./ingredients/icons/0_kde-papirus-icons.sh #Papirus icon theme and config for KDE
-#./ingredients/icons/kde-tela-icons.sh #Tela icon theme with accents for KDE
 #./ingredients/icons/papirus-icons-folders.sh indigo Papirus-Dark #Supplmental colored folders for Papirus icon theme [Requires /icons/0_xxx-papirus-icons ingredient]
 # Folder colors: black, bluegrey, brown, deeporange, grey, magenta, orange, paleorange, red, violet, yaru, blue, breeze, cyan, green, indigo, nordic, palebrown, pink, teal, white, yellow
 
 # Fonts
 # --------------------------------------------------------------------------
-#./ingredients/fonts/0_kde-fonts.sh #Install and configure sane fonts for KDE
-#./ingredients/fonts/kitty-jetbrains-mono.sh #JetBrains Mono font for Kitty terminal emulator [Requires /system/kitty and /fonts/0_xxx-fonts ingredients]
-#./ingredients/fonts/vscode-jetbrains-mono.sh #JetBrains Mono font for Visual Studio Code [Requires /dev/1_vscode and /fonts/0_xxx-fonts ingredients]
+#./ingredients/fonts/jetbrains-mono.sh #Install and configure Jetbrains Mono font
 
 # Hardware
 # --------------------------------------------------------------------------
@@ -99,9 +88,7 @@ function main() {
 
 # Themes
 # --------------------------------------------------------------------------
-#./ingredients/themes/dracula-theme-fish-shell.sh #Dracula theme for fish shell [Requires /shell/fish ingredient]
-#./ingredients/themes/dracula-theme-kitty.sh #Dracula theme for kitty terminal emulator
-#./ingredients/themes/dracula-theme-vscode.sh #Dracula theme for VSCode [Requires /dev/1_vscode ingredient]
+#./ingredients/themes/dracula-theme.sh #Dracula theme
 #./ingredients/themes/kde-layan-theme.sh #Layan theme for KDE
 
 # 14. Additional Packages

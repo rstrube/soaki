@@ -2,14 +2,8 @@
 # Generate Recipe Template for saki
 
 BLACKLIST_ARRAY=("aur.sh"
-                 "2_gnome-vscode-wayland.sh"
-                 "0_gnome-fonts.sh"
-                 "0_gnome-papirus-icons.sh"
                  "gpodder.sh"
-                 "seahorse.sh"
-                 "gnome-adwaita-dark-legacy-gtk.sh"
-                 "dracula-theme-gnome-terminal.sh"
-                 "dracula-theme-tilix.sh")
+                 "seahorse.sh")
 
 DATE=$(date +%Y-%m-%d-%H:%M:%S)
 GENERATED_RECIPE_TEMPLATE_NAME="recipe.sh"

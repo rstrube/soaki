@@ -1,5 +1,5 @@
 #!/bin/bash
-# recipe.sh : 2023-05-15-14:21:54
+# recipe.sh : 2023-05-15-14:31:27
 # NOTE: Please uncomment the ingredients you wish to install before running!
 # --------------------------------------------------------------------------
 
@@ -39,9 +39,9 @@ function main() {
 # --------------------------------------------------------------------------
 #./ingredients/dev/0_git.sh "Firstname Lastname" "myname@mydomain.com" #Git installation and configuration
 #./ingredients/dev/1_vscode.sh #Visual Studio Code
-#./ingredients/dev/3_dotnet-6.sh #.NET Core SDK and Runtimes (version 6.x)
-#./ingredients/dev/3_dotnet-latest.sh #.NET Core SDK and Runtimes (latest stable version)
-#./ingredients/dev/4_dotnet-https-dev-cert.sh #ASP.NET Dev HTTPS Cert [Requires /dev/dotnet ingredient]
+#./ingredients/dev/2_dotnet-6.sh #.NET Core SDK and Runtimes (version 6.x)
+#./ingredients/dev/2_dotnet-latest.sh #.NET Core SDK and Runtimes (latest stable version)
+#./ingredients/dev/3_dotnet-https-dev-cert.sh #ASP.NET Dev HTTPS Cert [Requires /dev/dotnet ingredient]
 #./ingredients/dev/android.sh #Android development tools (ADB, etc.)
 #./ingredients/dev/docker.sh #Docker
 #./ingredients/dev/postman.sh #Postman
@@ -74,8 +74,8 @@ function main() {
 
 # Icons
 # --------------------------------------------------------------------------
-#./ingredients/icons/0_kde-papirus-icons.sh #Papirus icon theme and config for KDE
-#./ingredients/icons/papirus-icons-folders.sh indigo Papirus-Dark #Supplmental colored folders for Papirus icon theme [Requires /icons/0_xxx-papirus-icons ingredient]
+#./ingredients/icons/0_papirus-icons.sh #Papirus icon theme
+#./ingredients/icons/1_papirus-icons-folders.sh indigo Papirus-Dark #Supplmental colored folders for Papirus icon theme [Requires /icons/0_papirus-icons ingredient]
 # Folder colors: black, bluegrey, brown, deeporange, grey, magenta, orange, paleorange, red, violet, yaru, blue, breeze, cyan, green, indigo, nordic, palebrown, pink, teal, white, yellow
 
 # Fonts

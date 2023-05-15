@@ -362,13 +362,13 @@ function install() {
         # Note: installing newer intel-media-driver (iHD) instead of libva-intel-driver (i965)
         # Intel drivers only supports VA-API
         arch-chroot /mnt pacman -S --noconfirm --needed --noprogressbar $COMMON_VULKAN_PACKAGES mesa lib32-mesa vulkan-intel lib32-vulkan-intel intel-media-driver libva-utils | tee -a "$LOG_FILE"
-        arch-chroot /mnt echo "LIBVA_DRIVER_NAME=iHD" >> /etc/environment
+        echo "LIBVA_DRIVER_NAME=iHD" >> /mnt/etc/environment
     fi
 
     if [[ "$AMD_GPU" == "true" ]]; then
         # AMDGPU supports both VA-API and VDPAU, but we're only installing support for VA-API
         arch-chroot /mnt pacman -S --noconfirm --needed --noprogressbar $COMMON_VULKAN_PACKAGES mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon libva-mesa-driver lib32-libva-mesa-driver libva-utils | tee -a "$LOG_FILE"
-        arch-chroot /mnt echo "LIBVA_DRIVER_NAME=radeonsi" >> /etc/environment
+        echo "LIBVA_DRIVER_NAME=radeonsi" >> /mnt/etc/environment
     fi
     
     if [[ "$NVIDIA_GPU" == "true" ]]; then
@@ -403,7 +403,7 @@ function install() {
     echo_to_log "11. Clone repo for additional ingredients"
     echo_to_log "========================================="
     # Clone saki git repo so that user can run post-install recipe
-    arch-chroot -u $USER_NAME /mnt git clone https://github.com/rstrube/saki.git /home/${USER_NAME}/saki
+    arch-chroot -u $USER_NAME /mnt git clone --recursive https://github.com/rstrube/saki.git /home/${USER_NAME}/saki
 
     if [ -n "$LOG_FILE" ]; then
         cp ./${LOG_FILE} /mnt/home/${USER_NAME}/

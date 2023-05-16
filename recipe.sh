@@ -1,5 +1,5 @@
 #!/bin/bash
-# recipe.sh : 2023-05-15-16:58:27
+# recipe.sh : 2023-05-16-09:27:25
 # NOTE: Please uncomment the ingredients you wish to install before running!
 # --------------------------------------------------------------------------
 
@@ -88,8 +88,8 @@ function main() {
 
 # Themes
 # --------------------------------------------------------------------------
-#./ingredients/themes/dracula-theme.sh #Dracula theme
-#./ingredients/themes/kde-layan-theme.sh #Layan theme for KDE
+#./ingredients/themes/arc-theme.sh #Arc Theme for Qt and GTK apps
+#./ingredients/themes/dracula-colors.sh #Dracula colors terminal, IDEs
 
 # 14. Additional Packages
 # --------------------------------------------------------------------------

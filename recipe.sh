@@ -1,5 +1,5 @@
 #!/bin/bash
-# recipe.sh : 2023-05-16-09:27:25
+# recipe.sh : 2023-05-31-17:15:46
 # NOTE: Please uncomment the ingredients you wish to install before running!
 # --------------------------------------------------------------------------
 
@@ -43,6 +43,7 @@ function main() {
 #./ingredients/dev/2_dotnet-latest.sh #.NET Core SDK and Runtimes (latest stable version)
 #./ingredients/dev/3_dotnet-https-dev-cert.sh #ASP.NET Dev HTTPS Cert [Requires /dev/dotnet ingredient]
 #./ingredients/dev/android.sh #Android development tools (ADB, etc.)
+#./ingredients/dev/azure-tools.sh #Additional Azure tools [Requires /dev/dotnet ingredient]
 #./ingredients/dev/docker.sh #Docker
 #./ingredients/dev/postman.sh #Postman
 #./ingredients/dev/vscode-vim.sh #vim extension for VSCode [Requires /dev/1_vscode ingredient]
